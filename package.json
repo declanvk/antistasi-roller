@@ -1,0 +1,29 @@
+{
+  "name": "antistasi-roller",
+  "version": "1.0.0",
+  "description": "An auto-roller for in-game rewards in Antistasi",
+  "scripts": {
+    "dev": "parcel watch src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/declanvk/antistasi-roller.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/declanvk/antistasi-roller/issues"
+  },
+  "homepage": "https://github.com/declanvk/antistasi-roller#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
