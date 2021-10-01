@@ -1,33 +1,54 @@
 {
-  "name": "antistasi-roller",
-  "version": "1.0.0",
-  "description": "An auto-roller for in-game rewards in Antistasi",
-  "scripts": {
-    "dev": "parcel watch src/index.html",
-    "build": "parcel build src/index.html --public-url ./",
-    "clean": "npm run clean:dist",
-    "clean:full": "git clean -xdf",
-    "clean:dist": "rimraf dist/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/declanvk/antistasi-roller.git"
-  },
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/declanvk/antistasi-roller/issues"
-  },
-  "homepage": "https://github.com/declanvk/antistasi-roller#readme",
-  "devDependencies": {
-    "parcel-bundler": "^1.12.5",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.4.3"
-  },
-  "dependencies": {
-    "@types/react": "^17.0.24",
-    "@types/react-dom": "^17.0.9",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-  }
+    "name": "antistasi-roller",
+    "version": "1.0.0",
+    "description": "An auto-roller for in-game rewards in Antistasi",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/declanvk/antistasi-roller.git"
+    },
+    "author": "Declan Kelly",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/declanvk/antistasi-roller/issues"
+    },
+    "homepage": "https://github.com/declanvk/antistasi-roller#readme",
+    "scripts": {
+        "clean": "rimraf dist/",
+        "build-dev": "webpack --mode development",
+        "build-prod": "webpack --mode production",
+        "start": "webpack serve --hot --mode development",
+        "lint": "eslint . --ext .ts",
+        "format": "prettier --config .prettierrc 'src/**/*.(ts|tsx)' --write"
+    },
+    "dependencies": {
+        "comlink": "^4.3.1",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "rpg-dice-roller": "^5.0.0",
+        "tailwindcss": "^2.2.16",
+        "toml": "^3.0.0"
+    },
+    "devDependencies": {
+        "@types/react": "^17.0.24",
+        "@types/react-dom": "^17.0.9",
+        "@typescript-eslint/eslint-plugin": "^4.32.0",
+        "@typescript-eslint/parser": "^4.32.0",
+        "autoprefixer": "^10.3.6",
+        "css-loader": "^6.3.0",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "html-webpack-plugin": "^5.3.2",
+        "mini-css-extract-plugin": "^2.3.0",
+        "postcss-loader": "^6.1.1",
+        "prettier": "^2.4.1",
+        "rimraf": "^3.0.2",
+        "style-loader": "^3.3.0",
+        "ts-loader": "^9.2.6",
+        "typescript": "^4.4.3",
+        "webpack": "^5.55.1",
+        "webpack-bundle-analyzer": "^4.4.2",
+        "webpack-cli": "^4.8.0",
+        "webpack-dev-server": "^4.3.0"
+    }
 }

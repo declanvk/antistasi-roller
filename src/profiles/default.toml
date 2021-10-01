@@ -1,0 +1,98 @@
+name = "Default"
+description = "The default rewards profile"
+quantityGenerator = "d4 + 3"
+
+# All objectives:
+
+[[objectives]]
+id = "petros"
+name = "Petros x2"
+rewards = [
+    { id = "weapons", quantity = 3 },
+    { id = "kit", quantity = 2 },
+    { id = "attachments", quantity = 1 },
+]
+
+[[objectives]]
+id = "resource"
+name = "Resource"
+rewards = [
+    { id = "weapons", quantity = 3 },
+    { id = "kit", quantity = 2 },
+    { id = "attachments", quantity = 1 },
+]
+
+[[objectives]]
+id = "repel"
+name = "Repel"
+rewards = [
+    { id = "weapons", quantity = 2 },
+    { id = "kit", quantity = 3 },
+    { id = "attachments", quantity = 2 },
+]
+
+[[objectives]]
+id = "outpost"
+name = "Output"
+rewards = [
+    { id = "weapons", quantity = 4 },
+    { id = "kit", quantity = 4 },
+    { id = "attachments", quantity = 2 },
+]
+
+[[objectives]]
+id = "sea-port"
+name = "Sea Port"
+rewards = [
+    { id = "weapons", quantity = 6 },
+    { id = "kit", quantity = 6 },
+    { id = "attachments", quantity = 4 },
+]
+
+[[objectives]]
+id = "air-base"
+name = "Air Base"
+rewards = [
+    { id = "weapons", quantity = 6 },
+    { id = "kit", quantity = 6 },
+    { id = "attachments", quantity = 4 },
+]
+
+# All items
+
+[[items]]
+id = "weapons"
+name = "Weapons"
+generator = "d6"
+subcategories = [
+    { id = "ar", name = "AR", generator = "2d6" },
+    { id = "lmg", name = "LMG", generator = "d8" },
+    { id = "marksman", name = "Marksman", generator = "2d4" },
+    { id = "cqb", name = "CQB", generator = "2d4" },
+    { id = "pistols", name = "Pistols", generator = "d6" },
+    { id = "launcher", name = "Launcher", generator = "d6" },
+]
+
+[[items]]
+id = "kit"
+name = "Kit"
+generator = "d5"
+subcategories = [
+    { id = "vest", name = "Vest", generator = "d16" },
+    { id = "headgear", name = "Headgear", generator = "d9" },
+    { id = "backpacks", name = "Backpacks", generator = "d8" },
+    { id = "nvg", name = "NVG", generator = "d6" },
+    { id = "bino-ter", name = "Bino/Ter", generator = "d4" },
+]
+
+
+[[items]]
+id = "attachments"
+name = "Attachments"
+generator = "d4"
+subcategories = [
+    { id = "scopes", name = "Scopes", generator = "d18" },
+    { id = "rails", name = "Rails", generator = "d4" },
+    { id = "under", name = "Under", generator = "d6" },
+    { id = "muzzle", name = "Muzzle", generator = "d10" },
+]
