@@ -597,6 +597,10 @@ h2 {
   display: inline-grid;
 }
 
+.border-collapse {
+  border-collapse: collapse;
+}
+
 @-webkit-keyframes spin {
   to {
     transform: rotate(360deg);
@@ -683,6 +687,21 @@ h2 {
 
 .border {
   border-width: 1px;
+}
+
+.border-green-600 {
+  --tw-border-opacity: 1;
+  border-color: rgba(5, 150, 105, var(--tw-border-opacity));
+}
+
+.bg-green-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
+}
+
+.hover\:bg-green-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
 }
 
 .p-4 {
