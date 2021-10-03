@@ -3,11 +3,12 @@ import { Profile } from '../models';
 import { RollerWorkerApi } from './App.hooks';
 import ProfileItems from './ProfileItems';
 import ProfileProbabilities from './ProfileProbabilities';
-import ProfileRewards from './ProfileRewards';
+import ProfileRewards from './ProfileReward';
 
 interface ProfilePaneProps {
     profile: Profile;
     getRollWorker: () => RollerWorkerApi;
+    addSessionLogLine: (text: string) => void;
 }
 
 enum ProfilePaneMode {
@@ -34,26 +35,33 @@ class ProfilePane extends React.Component<ProfilePaneProps, ProfilePaneState> {
     render() {
         const { name, description, items } = this.props.profile;
         return (
-            <div className="container mx-auto p-4">
-                <h1>{name}</h1>
-                <h2>{description}</h2>
-                <ProfileModeSwitcher
-                    currentMode={this.state.mode}
-                    setMode={this._handleModeButton}
-                />
-                {this.state.mode === ProfilePaneMode.REWARD ? (
-                    <ProfileRewards />
-                ) : undefined}
-                {this.state.mode === ProfilePaneMode.PROBABILITIES ? (
-                    <ProfileProbabilities
-                        items={items}
-                        getRollWorker={this.props.getRollWorker}
+            <>
+                <header>
+                    <h1>{name}: {description}</h1>
+                </header>
+                <main className="container mx-auto p-4">
+                    <ProfileModeSwitcher
+                        currentMode={this.state.mode}
+                        setMode={this._handleModeButton}
                     />
-                ) : undefined}
-                {this.state.mode === ProfilePaneMode.ITEMS ? (
-                    <ProfileItems items={items} />
-                ) : undefined}
-            </div>
+                    {this.state.mode === ProfilePaneMode.REWARD ? (
+                        <ProfileRewards
+                            objectives={this.props.profile.objectives}
+                            items={this.props.profile.items}
+                            quantityGenerator={this.props.profile.quantityGenerator}
+                        />
+                    ) : undefined}
+                    {this.state.mode === ProfilePaneMode.PROBABILITIES ? (
+                        <ProfileProbabilities
+                            items={items}
+                            getRollWorker={this.props.getRollWorker}
+                        />
+                    ) : undefined}
+                    {this.state.mode === ProfilePaneMode.ITEMS ? (
+                        <ProfileItems items={items} />
+                    ) : undefined}
+                </main>
+            </>
         );
     }
 }
@@ -70,8 +78,7 @@ const ProfileModeSwitcher = ({
             const isDisabled = modeValue === currentMode;
             return (
                 <button
-                    className="border px-4"
-                    disabled={isDisabled}
+                    className="border px-4 bg-green-400 hover:bg-green-500 active:bg-green-500"
                     onClick={() => {
                         setMode(modeValue as ProfilePaneMode);
                     }}
@@ -83,7 +90,7 @@ const ProfileModeSwitcher = ({
         }
     );
 
-    return <div className="inline-flex">{...buttons}</div>;
+    return <nav className="inline-flex">{...buttons}</nav>;
 };
 
 export default ProfilePane;

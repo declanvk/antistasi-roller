@@ -22,8 +22,9 @@ class ProfileItems extends React.Component<ProfileItemsProps> {
 const ItemCategory: React.FC<{ item: ItemCategory }> = ({ item }) => {
     return (
         <div>
-            <span>{item.name}</span>
-            <span>{item.generator}</span>
+            <span>
+                {item.name} - {item.generator}
+            </span>
             <div className="pl-4">
                 {...item.subcategories.map((sub) => (
                     <ItemSubcategory key={sub.id} subcategory={sub} />

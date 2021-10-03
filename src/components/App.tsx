@@ -9,12 +9,15 @@ interface AppProps {
 
 class App extends React.Component<AppProps> {
     private _rollWorker: RollerWorkerApi;
+    private _sessionLog: [Date, string][];
 
     constructor(props: AppProps) {
         super(props);
 
         this._rollWorker = new RollerWorkerApi();
         this.getRollWorker = this.getRollWorker.bind(this);
+        this.addSessionLogLine = this.addSessionLogLine.bind(this);
+        this._sessionLog = [];
     }
 
     componentWillUnmount() {
@@ -25,6 +28,10 @@ class App extends React.Component<AppProps> {
         return this._rollWorker;
     }
 
+    addSessionLogLine(text: string) {
+        this._sessionLog.push([new Date(), text]);
+    }
+
     render() {
         const { profile } = this.props;
         return (
@@ -32,10 +39,17 @@ class App extends React.Component<AppProps> {
                 <ProfilePane
                     profile={profile}
                     getRollWorker={this.getRollWorker}
+                    addSessionLogLine={this.addSessionLogLine}
                 />
             </>
         );
     }
 }
+
+const SessionLog: React.FC<{ sessionLog: [Date, string][] }> = ({ sessionLog }) => {
+    return (<div>
+
+    </div>);
+};
 
 export default App;
