@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { isItemCategory, ItemCategory, ItemSubcategory } from '../models';
-import { RollerWorkerApi, useSimulateRolls } from './App.hooks';
+import { RollerWorkerContext } from './App';
+import { useSimulateRolls } from './App.hooks';
 
 interface ProfileProbabilitiesProps {
     items: ItemCategory[];
-    getRollWorker: () => RollerWorkerApi;
 }
 
 class ProfileProbabilities extends React.Component<ProfileProbabilitiesProps> {
@@ -18,13 +18,7 @@ class ProfileProbabilities extends React.Component<ProfileProbabilitiesProps> {
         );
 
         const generatorList = allGenerators.map((generator) => {
-            return (
-                <Generator
-                    key={generator}
-                    diceExpression={generator}
-                    getRollWorker={this.props.getRollWorker}
-                />
-            );
+            return <Generator key={generator} diceExpression={generator} />;
         });
 
         return <div className="border space-y-4">{...generatorList}</div>;
@@ -44,22 +38,23 @@ function gatherGenerators(item: ItemCategory | ItemSubcategory): string[] {
 
 const Generator: React.FC<{
     diceExpression: string;
-    getRollWorker: () => RollerWorkerApi;
-}> = ({ diceExpression, getRollWorker }) => {
-    const probabilities = useSimulateRolls(getRollWorker(), diceExpression);
+}> = ({ diceExpression }) => {
+    const rollWorker = React.useContext(RollerWorkerContext);
+
+    const probabilities = useSimulateRolls(rollWorker, diceExpression);
     if (probabilities.isCalculating || probabilities.results === undefined) {
         return <div>{diceExpression}: Calculating...</div>;
     }
 
     const zippedValueProbability = probabilities.results!.values.flatMap(
         (value, idx) => {
+            const probability =
+                probabilities.results!.counts[idx] /
+                probabilities.results!.numRolls;
             return [
                 <span key={`value-${idx}`}>{value}</span>,
                 <span key={`prob-${idx}`}>
-                    {(
-                        probabilities.results!.probabilites[idx] * 100
-                    ).toPrecision(2)}
-                    %
+                    {(probability * 100).toPrecision(2)}%
                 </span>
             ];
         }

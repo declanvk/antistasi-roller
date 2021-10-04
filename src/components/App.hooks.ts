@@ -1,6 +1,6 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { wrap, releaseProxy, Remote } from 'comlink';
-import { DiceProbabilites, Roller } from '../roller';
+import { DiceProbabilites, DiceRollResult, Roller } from '../roller';
 
 export function useSimulateRolls(
     worker: RollerWorkerApi,
@@ -27,31 +27,6 @@ export function useSimulateRolls(
     return data;
 }
 
-export function useRollDice(
-    worker: RollerWorkerApi,
-    diceExpression: string
-): {
-    isCalculating: boolean;
-    results: undefined | number;
-} {
-    // We'll want to expose a wrapping object so we know when a calculation is in progress
-    const [data, setData] = useState({
-        isCalculating: false,
-        results: undefined as number | undefined
-    });
-
-    useEffect(() => {
-        // We're starting the calculation here
-        setData({ isCalculating: true, results: undefined });
-
-        worker
-            .rollDice(diceExpression)
-            .then((results) => setData({ isCalculating: false, results }));
-    }, [setData, diceExpression]);
-
-    return data;
-}
-
 export class RollerWorkerApi {
     private _worker: Worker;
     private _workerApi: Remote<Roller>;
@@ -69,7 +44,7 @@ export class RollerWorkerApi {
         this._isDisposed = false;
     }
 
-    cleanup() {
+    cleanup(): void {
         if (this._isDisposed) {
             return;
         }
@@ -79,11 +54,11 @@ export class RollerWorkerApi {
         this._worker.terminate();
     }
 
-    rollDice(diceExpression: string) {
+    rollDice(diceExpression: string): Promise<DiceRollResult> {
         return this._workerApi.rollDice(diceExpression);
     }
 
-    calculateProbabilites(diceExpression: string) {
+    calculateProbabilites(diceExpression: string): Promise<DiceProbabilites> {
         return this._workerApi.calculateProbabilites(diceExpression);
     }
 }

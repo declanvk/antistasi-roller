@@ -12,7 +12,7 @@ export function isProfile(data: unknown): data is Profile {
         return false;
     }
 
-    const profile = data as any;
+    const profile = data as Profile;
 
     return (
         typeof profile.name === 'string' &&
@@ -34,7 +34,7 @@ export function isObjective(data: unknown): data is Objective {
         return false;
     }
 
-    const obj = data as any;
+    const obj = data as Objective;
     return (
         typeof obj.id === 'string' &&
         typeof obj.name === 'string' &&
@@ -52,7 +52,7 @@ export function isItemReference(data: unknown): data is ItemReference {
         return false;
     }
 
-    const item = data as any;
+    const item = data as ItemReference;
     return typeof item.id === 'string' && typeof item.quantity === 'number';
 }
 
@@ -68,7 +68,7 @@ export function isItemCategory(data: unknown): data is ItemCategory {
         return false;
     }
 
-    const item = data as any;
+    const item = data as ItemCategory;
     return (
         typeof item.id === 'string' &&
         typeof item.name === 'string' &&
@@ -87,7 +87,7 @@ export function isItemSubcategory(data: unknown): data is ItemSubcategory {
         return false;
     }
 
-    const item = data as any;
+    const item = data as ItemSubcategory;
     return (
         typeof item.id === 'string' &&
         typeof item.name === 'string' &&

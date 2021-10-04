@@ -10,7 +10,7 @@ interface ProfileItemsProps {
 class ProfileItems extends React.Component<ProfileItemsProps> {
     render() {
         return (
-            <div>
+            <div className="border">
                 {...this.props.items.map((item) => (
                     <ItemCategory key={item.id} item={item} />
                 ))}

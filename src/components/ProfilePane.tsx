@@ -1,14 +1,11 @@
 import * as React from 'react';
 import { Profile } from '../models';
-import { RollerWorkerApi } from './App.hooks';
 import ProfileItems from './ProfileItems';
 import ProfileProbabilities from './ProfileProbabilities';
 import ProfileRewards from './ProfileReward';
 
 interface ProfilePaneProps {
     profile: Profile;
-    getRollWorker: () => RollerWorkerApi;
-    addSessionLogLine: (text: string) => void;
 }
 
 enum ProfilePaneMode {
@@ -37,7 +34,9 @@ class ProfilePane extends React.Component<ProfilePaneProps, ProfilePaneState> {
         return (
             <>
                 <header>
-                    <h1>{name}: {description}</h1>
+                    <h1>
+                        {name}: {description}
+                    </h1>
                 </header>
                 <main className="container mx-auto p-4">
                     <ProfileModeSwitcher
@@ -48,14 +47,13 @@ class ProfilePane extends React.Component<ProfilePaneProps, ProfilePaneState> {
                         <ProfileRewards
                             objectives={this.props.profile.objectives}
                             items={this.props.profile.items}
-                            quantityGenerator={this.props.profile.quantityGenerator}
+                            quantityGenerator={
+                                this.props.profile.quantityGenerator
+                            }
                         />
                     ) : undefined}
                     {this.state.mode === ProfilePaneMode.PROBABILITIES ? (
-                        <ProfileProbabilities
-                            items={items}
-                            getRollWorker={this.props.getRollWorker}
-                        />
+                        <ProfileProbabilities items={items} />
                     ) : undefined}
                     {this.state.mode === ProfilePaneMode.ITEMS ? (
                         <ProfileItems items={items} />

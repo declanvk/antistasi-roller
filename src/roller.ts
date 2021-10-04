@@ -1,4 +1,15 @@
 import { DiceRoll } from 'rpg-dice-roller';
+import { RollResults } from 'rpg-dice-roller/types/results';
+
+export interface DiceRollResult {
+    output: string;
+    total: number;
+    minTotal: number;
+    maxTotal: number;
+    notation: string;
+    rolls: RollResults[];
+    type: string;
+}
 
 export class Roller {
     private _probabilitesCache: Map<string, DiceProbabilites>;
@@ -11,11 +22,11 @@ export class Roller {
         this._numIterations = 10000;
     }
 
-    rollDice(diceExpression: string): number {
+    rollDice(diceExpression: string): DiceRollResult {
         const diceRoll = this.getDice(diceExpression);
         diceRoll.roll();
 
-        return diceRoll.total;
+        return diceRoll.toJSON();
     }
 
     calculateProbabilites(diceExpression: string): DiceProbabilites {
@@ -45,14 +56,14 @@ export class Roller {
         const values = Array.from(uniqueValuesToCount.keys()).sort(
             (a, b) => a - b
         );
-        const probabilites = values.map((value) => {
-            const count = uniqueValuesToCount.get(value)!;
-            return count / this._numIterations;
+        const counts = values.map((value) => {
+            return uniqueValuesToCount.get(value)!;
         });
 
         return {
             values,
-            probabilites
+            counts,
+            numRolls: this._numIterations
         };
     }
 
@@ -68,5 +79,6 @@ export class Roller {
 
 export interface DiceProbabilites {
     readonly values: number[];
-    readonly probabilites: number[];
+    readonly counts: number[];
+    readonly numRolls: number;
 }
