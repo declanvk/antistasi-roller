@@ -21,7 +21,7 @@ class ProfileProbabilities extends React.Component<ProfileProbabilitiesProps> {
             return <Generator key={generator} diceExpression={generator} />;
         });
 
-        return <div className="border space-y-4">{...generatorList}</div>;
+        return <div className="border space-y-4 p-4">{...generatorList}</div>;
     }
 }
 

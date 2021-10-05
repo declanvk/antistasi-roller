@@ -21,7 +21,7 @@ const ProfileReward: React.FC<ProfileRewardProps> = ({
     );
 
     return (
-        <div className="border">
+        <div className="border flex flex-wrap">
             <RewardsTable
                 objectives={objectives}
                 itemIdMap={itemIdMap}
@@ -53,27 +53,52 @@ const CompletedObjective: React.FC<{
         quantityGenerator
     );
 
-    const listItems = data.map((reward) => {
+    const columnsLabels = [
+        'Item',
+        'Item roll',
+        'Subcategory',
+        'Subcategory roll',
+        'Quantity'
+    ].map((columnName) => {
         return (
-            <li key={`${reward.item.name}-${reward.itemIdx + 1}`}>
-                <p>
-                    {reward.item.name}
-                    {'=>'}
-                    {reward.reward.categoryRoll?.total}
-                    {'=>'}
-                    {reward.reward.subcategory?.name}
-                    {'=>'}
-                    {reward.reward.subcategoryRoll?.total}
-                    {'=>'}
-                    {reward.reward.quantityRoll?.total}
-                </p>
-            </li>
+            <th key={columnName} className="border border-green-600 px-2">
+                {columnName}
+            </th>
+        );
+    });
+
+    const rewardRows = data.map((reward) => {
+        const rowValues = [
+            reward.item.name,
+            reward.reward.categoryRoll?.total,
+            reward.reward.subcategory?.name,
+            reward.reward.subcategoryRoll?.total,
+            reward.reward.quantityRoll?.total
+        ].map((value, idx) => {
+            return (
+                <td
+                    key={`${reward.item.name}-${reward.itemIdx + 1}-${idx}`}
+                    className="border border-green-600 px-2 text-center"
+                >
+                    {value}
+                </td>
+            );
+        });
+        return (
+            <tr key={`${reward.item.name}-${reward.itemIdx + 1}`}>
+                {...rowValues}
+            </tr>
         );
     });
 
     return (
-        <div>
-            Rewards for {objective.name}:<ul>{...listItems}</ul>
+        <div className="flex-auto p-4">
+            <table className="border-collapse">
+                <thead>
+                    <tr>{...columnsLabels}</tr>
+                </thead>
+                <tbody>{...rewardRows}</tbody>
+            </table>
         </div>
     );
 };
@@ -93,7 +118,7 @@ const RewardsTable: React.FC<{
 
     const itemHeaders = uniqueItemIds.map((itemId) => {
         return (
-            <th key={itemId} className="border border-green-600 ...">
+            <th key={itemId} className="border border-green-600 px-2">
                 {itemIdMap.get(itemId)?.name}
             </th>
         );
@@ -107,7 +132,7 @@ const RewardsTable: React.FC<{
             return (
                 <td
                     key={`${obj.id}-${itemId}`}
-                    className="border border-green-600"
+                    className="border border-green-600 px-2 text-center"
                 >
                     {rewardQuantity}
                 </td>
@@ -120,7 +145,7 @@ const RewardsTable: React.FC<{
                         onClick={() => {
                             setCompletedObjective(obj);
                         }}
-                        className="w-full h-full bg-grey-100"
+                        className="w-full h-full px-2 hover:bg-gray-200"
                         key={obj.id}
                     >
                         {obj.name}
@@ -132,15 +157,17 @@ const RewardsTable: React.FC<{
     });
 
     return (
-        <table className="border-collapse">
-            <thead>
-                <tr>
-                    <th />
-                    {...itemHeaders}
-                </tr>
-            </thead>
-            <tbody>{...objectiveRows}</tbody>
-        </table>
+        <div className="p-4">
+            <table className="border-collapse">
+                <thead>
+                    <tr>
+                        <th />
+                        {...itemHeaders}
+                    </tr>
+                </thead>
+                <tbody>{...objectiveRows}</tbody>
+            </table>
+        </div>
     );
 };
 
