@@ -42,8 +42,9 @@ const config = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            templateContent: ({ htmlWebpackPlugin }) => '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>' + htmlWebpackPlugin.options.title + '</title></head><body><div id=\"root\"></div></body></html>',
-            filename: 'index.html',
+            favicon: 'assets/favicon.png',
+            template: 'src/index.html',
+            title: 'Antistasi Autoroller'
         }),
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
