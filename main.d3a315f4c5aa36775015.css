@@ -585,6 +585,10 @@ h2 {
   display: block;
 }
 
+.flex {
+  display: flex;
+}
+
 .inline-flex {
   display: inline-flex;
 }
@@ -603,6 +607,10 @@ h2 {
 
 .w-full {
   width: 100%;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
 }
 
 .border-collapse {
@@ -683,6 +691,10 @@ h2 {
   grid-template-rows: repeat(2, minmax(0, 1fr));
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .gap-3 {
   gap: 0.75rem;
 }
@@ -707,6 +719,11 @@ h2 {
   background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
 }
 
+.hover\:bg-gray-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+}
+
 .hover\:bg-green-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
@@ -716,6 +733,11 @@ h2 {
   padding: 1rem;
 }
 
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -723,6 +745,10 @@ h2 {
 
 .pl-4 {
   padding-left: 1rem;
+}
+
+.text-center {
+  text-align: center;
 }
 
 *, ::before, ::after {
