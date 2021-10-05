@@ -81,7 +81,7 @@ subcategories = [
     { id = "vest", name = "Vest", generator = "d16" },
     { id = "headgear", name = "Headgear", generator = "d9" },
     { id = "backpacks", name = "Backpacks", generator = "d8" },
-    { id = "nvg", name = "NVG", generator = "d6" },
+    { id = "nvg", name = "NVG", generator = "probability![0.05,0.2,0.25,0.25,0.2,0.05]" },
     { id = "bino-ter", name = "Bino/Ter", generator = "d4" },
 ]
 

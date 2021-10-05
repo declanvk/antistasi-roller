@@ -1,5 +1,6 @@
 import { DiceRoll } from 'rpg-dice-roller';
 import { RollResults } from 'rpg-dice-roller/types/results';
+import { isListOf } from './models';
 
 export interface DiceRollResult {
     output: string;
@@ -23,6 +24,21 @@ export class Roller {
     }
 
     rollDice(diceExpression: string): DiceRollResult {
+        if (isProbabilityExpression(diceExpression)) {
+            const weights = parseProbabilityExpression(diceExpression);
+            const total = rollProbabilityExpression(weights);
+
+            return {
+                total,
+                maxTotal: weights.length,
+                minTotal: 1,
+                rolls: [],
+                type: 'direct',
+                notation: diceExpression,
+                output: `[${total}]`
+            };
+        }
+
         const diceRoll = this.getDice(diceExpression);
         diceRoll.roll();
 
@@ -32,6 +48,18 @@ export class Roller {
     calculateProbabilites(diceExpression: string): DiceProbabilites {
         if (this._probabilitesCache.has(diceExpression)) {
             return this._probabilitesCache.get(diceExpression)!;
+        }
+
+        if (isProbabilityExpression(diceExpression)) {
+            const weights = parseProbabilityExpression(diceExpression);
+            const values = range(1, weights.length);
+            const total = weights.reduce((sum, elem) => sum + elem);
+
+            return {
+                values,
+                counts: weights,
+                numRolls: total
+            };
         }
 
         const result = this.performSimulation(diceExpression);
@@ -81,4 +109,69 @@ export interface DiceProbabilites {
     readonly values: number[];
     readonly counts: number[];
     readonly numRolls: number;
+}
+
+const PROBABILITY_EXPR_PREFIX = 'probability!';
+
+function isProbabilityExpression(expression: string): boolean {
+    return expression.startsWith(PROBABILITY_EXPR_PREFIX);
+}
+
+function parseProbabilityExpression(expression: string): number[] {
+    if (!isProbabilityExpression(expression)) {
+        throw new Error(
+            `Unable to parse direct probability expression from [${expression}]!`
+        );
+    }
+
+    const probabilities = JSON.parse(
+        expression.substring(PROBABILITY_EXPR_PREFIX.length)
+    ) as unknown;
+
+    if (
+        isListOf(
+            probabilities,
+            ((elem) => typeof elem === 'number') as (
+                elem: unknown
+            ) => elem is number
+        )
+    ) {
+        return probabilities;
+    } else {
+        throw new Error(
+            `Unable to parse direct probability expression from [${expression}]!`
+        );
+    }
+}
+
+function rollProbabilityExpression(weights: number[]): number {
+    const cummulativeWeights: number[] = [];
+
+    for (let index = 0; index < weights.length; index++) {
+        const prevCummulativeWeight = cummulativeWeights[index - 1] || 0;
+        cummulativeWeights.push(weights[index] + prevCummulativeWeight);
+    }
+
+    const random =
+        Math.random() * cummulativeWeights[cummulativeWeights.length - 1];
+
+    for (let index = 0; index < cummulativeWeights.length; index++) {
+        if (cummulativeWeights[index] > random) {
+            return index + 1;
+        }
+    }
+
+    return cummulativeWeights.length;
+}
+
+function range(start: number, length: number): number[] {
+    const array = new Array(length);
+    let currentValue = start;
+
+    for (let index = 0; index < array.length; index++) {
+        array[index] = currentValue;
+        currentValue += 1;
+    }
+
+    return array;
 }

@@ -95,7 +95,7 @@ export function isItemSubcategory(data: unknown): data is ItemSubcategory {
     );
 }
 
-function isListOf<T>(
+export function isListOf<T>(
     data: unknown,
     guard: (elem: unknown) => elem is T
 ): data is T[] {
