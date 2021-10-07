@@ -6,10 +6,10 @@ quantityGenerator = "d4 + 3"
 
 [[objectives]]
 id = "petros"
-name = "Petros x2"
+name = "Petros"
 rewards = [
-    { id = "weapons", quantity = 3 },
-    { id = "kit", quantity = 2 },
+    { id = "weapons", quantity = 1 },
+    { id = "kit", quantity = 1 },
     { id = "attachments", quantity = 1 },
 ]
 
@@ -17,26 +17,17 @@ rewards = [
 id = "resource"
 name = "Resource"
 rewards = [
-    { id = "weapons", quantity = 3 },
+    { id = "weapons", quantity = 2 },
     { id = "kit", quantity = 2 },
     { id = "attachments", quantity = 1 },
 ]
 
 [[objectives]]
-id = "repel"
-name = "Repel"
+id = "outpost"
+name = "Outpost"
 rewards = [
     { id = "weapons", quantity = 2 },
-    { id = "kit", quantity = 3 },
-    { id = "attachments", quantity = 2 },
-]
-
-[[objectives]]
-id = "outpost"
-name = "Output"
-rewards = [
-    { id = "weapons", quantity = 4 },
-    { id = "kit", quantity = 4 },
+    { id = "kit", quantity = 2 },
     { id = "attachments", quantity = 2 },
 ]
 
@@ -44,17 +35,17 @@ rewards = [
 id = "sea-port"
 name = "Sea Port"
 rewards = [
-    { id = "weapons", quantity = 6 },
-    { id = "kit", quantity = 6 },
-    { id = "attachments", quantity = 4 },
+    { id = "weapons", quantity = 3 },
+    { id = "kit", quantity = 3 },
+    { id = "attachments", quantity = 3 },
 ]
 
 [[objectives]]
 id = "air-base"
 name = "Air Base"
 rewards = [
-    { id = "weapons", quantity = 6 },
-    { id = "kit", quantity = 6 },
+    { id = "weapons", quantity = 4 },
+    { id = "kit", quantity = 4 },
     { id = "attachments", quantity = 4 },
 ]
 
@@ -67,8 +58,8 @@ generator = "d6"
 subcategories = [
     { id = "ar", name = "AR", generator = "2d6" },
     { id = "lmg", name = "LMG", generator = "d8" },
-    { id = "marksman", name = "Marksman", generator = "2d4" },
-    { id = "cqb", name = "CQB", generator = "2d4" },
+    { id = "marksman", name = "Marksman", generator = "2d6" },
+    { id = "cqb", name = "CQB", generator = "2d6" },
     { id = "pistols", name = "Pistols", generator = "d6" },
     { id = "launcher", name = "Launcher", generator = "d6" },
 ]
@@ -78,9 +69,9 @@ id = "kit"
 name = "Kit"
 generator = "d5"
 subcategories = [
-    { id = "vest", name = "Vest", generator = "d16" },
-    { id = "headgear", name = "Headgear", generator = "d9" },
-    { id = "backpacks", name = "Backpacks", generator = "d8" },
+    { id = "vest", name = "Vest", generator = "d24" },
+    { id = "headgear", name = "Headgear", generator = "d18" },
+    { id = "backpacks", name = "Backpacks", generator = "d12" },
     { id = "nvg", name = "NVG", generator = "probability![0.05,0.2,0.25,0.25,0.2,0.05]" },
     { id = "bino-ter", name = "Bino/Ter", generator = "d4" },
 ]
